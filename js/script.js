@@ -37,10 +37,8 @@ const quotes = [
   }
 ];
 
-// Output Test
-console.log(quotes[0]['quote']);
-console.log(quotes[0]['source']);
-console.log(quotes[0]['citation']);
-console.log(quotes[0]['year']);
-console.log(quotes[0]['tags'][0]);
-console.log(quotes[0]['tags'][1]);
+// Generate random quote based on quotes length
+const getRandomQuote = () => Math.floor(Math.random() * quotes.length);
+
+// Test Output of getRandomQuote()
+console.log(getRandomQuote()); // 0 - quotes.length

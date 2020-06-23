@@ -58,6 +58,7 @@ h1 {
 .quote-box {
   text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.3);
   line-height: 0.5;
+  display: inline-block;
 }
 
 .quote {
@@ -112,6 +113,23 @@ h1 {
 
 .year:before {
   content: ", ";
+  font-style: normal;
+}
+
+.tags {
+  float: right;
+  margin-right: 5em;
+}
+
+.tags li {
+  font-style: italic;
+  display: inline;
+  margin-left: 12px;
+  list-style: none;
+}
+
+.tags li:not(:last-child):after {
+  content: ",";
   font-style: normal;
 }
 

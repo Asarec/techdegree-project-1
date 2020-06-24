@@ -69,7 +69,7 @@ function printQuote() {
         for ( let i = 0; i < randomQuote.tags.length; i++) {
             html += `<li>${randomQuote.tags[i]}</li>`;
         }
-        html += '</p>'
+        html += '</ul>'
     }
 
     // Change background color.
@@ -78,7 +78,10 @@ function printQuote() {
     return document.getElementById('quote-box').innerHTML = html;
 }
 
-/** Change Background Color. */
+/**
+ * Change Background Color.
+ * @returns {string} - Returns RGB values in string format.
+ */
 function backgroundColor() {
     let red = Math.floor(Math.random() * 256);
     let green = Math.floor(Math.random() * 256);
@@ -87,9 +90,11 @@ function backgroundColor() {
     return `rgb(${red}, ${green}, ${blue})`;
 }
 
-console.log(backgroundColor());
-
-/** Call printQuote for default display. */
+/** Call printQuote for initial quote. */
 printQuote();
 
+/** Set repeating interval to 20s */
+setInterval(function() {printQuote()}, 20000);
+
+/** Click event listener for the print quote button. */
 document.getElementById('load-quote').addEventListener('click', printQuote, false);

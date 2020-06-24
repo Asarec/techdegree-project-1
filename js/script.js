@@ -72,8 +72,22 @@ function printQuote() {
         html += '</p>'
     }
 
+    // Change background color.
+    document.body.style.backgroundColor = backgroundColor();
+
     return document.getElementById('quote-box').innerHTML = html;
 }
+
+/** Change Background Color. */
+function backgroundColor() {
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+
+    return `rgb(${red}, ${green}, ${blue})`;
+}
+
+console.log(backgroundColor());
 
 /** Call printQuote for default display. */
 printQuote();

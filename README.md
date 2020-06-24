@@ -3,7 +3,7 @@
 
 A script that randomly selects a quotes from an array of objects and displays it to the browser.
 
-![](project.gif)
+![](gif.gif)
 
 ## Usage Example
 Change or add quotes to the array like so:

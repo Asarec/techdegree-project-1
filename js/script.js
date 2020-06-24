@@ -63,6 +63,15 @@ function printQuote() {
         html += '</p>';
     }
 
+    // Checks for tags.
+    if (randomQuote.tags) {
+        html += '<ul class="tags">'
+        for ( let i = 0; i < randomQuote.tags.length; i++) {
+            html += `<li>${randomQuote.tags[i]}</li>`;
+        }
+        html += '</p>'
+    }
+
     return document.getElementById('quote-box').innerHTML = html;
 }
 

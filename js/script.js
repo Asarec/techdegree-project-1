@@ -1,5 +1,5 @@
 /** Array of objects containing quotes and citation information. */
-const quotes = [
+let quotes = [
     {
         quote: 'We accept the love we think we deserve.',
         source: 'Stephen Chbosky',
@@ -41,15 +41,45 @@ const quotes = [
     }
 ];
 
-/** Returns the object of a random quote. */
-const getRandomQuote = () => quotes[Math.floor(Math.random() * quotes.length)];
+/** An array to temporarily store used quotes */
+let usedQuotes =[];
 
 /**
- * Accepts a random quote and returns it as a string.
- * @return {string} - Returns the quote in string format.
+ * Returns the object of a random quote.
+ * @return {object} - Returns random quote object.
+ */
+function getRandomQuote() {
+    const randomIndex = Math.floor(Math.random() * quotes.length)
+    const randomObject = quotes[randomIndex];
+
+    // Ensure that quotes don't repeat one after the other.
+    if ( quotes.length == 1 ) {
+        // Holds on to last quote.
+        let holdQuote = quotes.pop();
+
+        // Remove values from usedQuotes array and add to quotes array.
+        for (let i = 0; i < usedQuotes.length; i++) {
+            quotes.push(usedQuotes[i]);
+            usedQuotes.splice(i, 1);
+            i--;
+        }
+
+        // Add last quote to usedQuotes array.
+        usedQuotes.push(holdQuote);
+    } else {
+        quotes.splice(randomIndex, 1);
+        usedQuotes.push(randomObject);
+    }
+
+    return randomObject;
+}
+
+/**
+ * Prints the random quote to the browser.
+ * @return {string} - Returns the quote in HTML format.
  */
 function printQuote() {
-    let randomQuote = getRandomQuote();
+    const randomQuote = getRandomQuote();
     let html = `<p class="quote">${randomQuote.quote}</p><p class="source">${randomQuote.source}`;
 
     // Checks for available citation.
@@ -65,7 +95,7 @@ function printQuote() {
     }
 
     // Checks for tags.
-    if (randomQuote.tags) {
+    if ( randomQuote.tags ) {
         html += '<ul class="tags">'
         for ( let i = 0; i < randomQuote.tags.length; i++) {
             html += `<li>${randomQuote.tags[i]}</li>`;
@@ -73,7 +103,7 @@ function printQuote() {
         html += '</ul>'
     }
 
-    // Change background color.
+    // Randomly change background color.
     document.body.style.backgroundColor = backgroundColor();
 
     return document.getElementById('quote-box').innerHTML = html;
@@ -84,18 +114,24 @@ function printQuote() {
  * @returns {string} - Returns RGB values in string format.
  */
 function backgroundColor() {
-    let red = Math.floor(Math.random() * 256);
-    let green = Math.floor(Math.random() * 256);
-    let blue = Math.floor(Math.random() * 256);
+    let rgb = [];
 
-    return `rgb(${red}, ${green}, ${blue})`;
+    for (let i = 0; i < 3; i++) {
+        rgb.push(Math.floor(Math.random() * 256));
+    }
+
+    return `rgb(${rgb.join(', ')})`;
 }
 
 /** Call printQuote for initial quote. */
 printQuote();
 
 /** Set repeating interval to 20s */
-setInterval(function() {printQuote()}, 20000);
+let quoteTimer = setInterval(printQuote, 20000);
 
-/** Click event listener for the print quote button. */
-document.getElementById('load-quote').addEventListener('click', printQuote, false);
+/** Click event listener for the print quote button and reset quoteTimer. */
+document.getElementById('load-quote').addEventListener('click', function() {
+    printQuote();
+    clearInterval(quoteTimer);
+    quoteTimer = setInterval(printQuote, 20000);
+}, false);
